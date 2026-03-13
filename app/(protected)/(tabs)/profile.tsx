@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import { Alert, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-// import { ChangePass } from "@/components/ChangePassForm/ChangePassForm";
-// import { UserProfileForm } from "@/components/UserProfileForm/UserProfileForm";
+import { ChangePass } from "@/components/ChangePassForm/ChangePassForm";
+import { UserProfileForm } from "@/components/UserProfileForm/UserProfileForm";
 import { IconButton } from "@/components/buttons/IconButton";
 import { ProfileImage } from "@/components/buttons/ProfileImage";
 import { ThemedText } from "@/components/themed/themed-text";
@@ -65,9 +65,9 @@ export default function Profile() {
           <ThemedText type={'default'}>{user.email} </ThemedText>
           {user.voice && <ThemedText type={'default'}>{user.voice} </ThemedText>}
 
-          {/* {isEditable && <UserProfileForm handleSuccess={() => setIsEditable(false)} />} */}
+          {isEditable && <UserProfileForm handleSuccess={() => setIsEditable(false)} />}
 
-          {/* {changePass && <ChangePass handleSuccess={() => setChangePass(false)} />} */}
+          {changePass && <ChangePass handleSuccess={() => setChangePass(false)} />}
 
         </ThemedView>
 

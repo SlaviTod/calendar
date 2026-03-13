@@ -38,7 +38,7 @@ export const requester = async ({
     options.body = formData;
   }
 
-  console.log(`${method} url ${apiHost}${url}${queryString}`)
+  console.log(`requester: ${method} url ${apiHost}${url}${queryString}`)
 
   const response = await fetch(`${apiHost}${url}${queryString}`, options);
 
