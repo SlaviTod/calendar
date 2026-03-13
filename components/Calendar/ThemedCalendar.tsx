@@ -1,8 +1,6 @@
-import { Redirect } from "expo-router";
 import { DateTime, Interval } from 'luxon';
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert } from "react-native";
 import { Calendar, CalendarProps, DateData, LocaleConfig } from 'react-native-calendars';
 
 import { AuthContext } from "@/contexts/AuthContext";
@@ -72,13 +70,6 @@ export const TheCalendar = ({
   const { isLoggedIn, user } = useContext(AuthContext);
 
   const { i18n, t } = useTranslation();
-
-  if (!isLoggedIn) {
-    Alert.alert(t('actionNeed'), t('notauth_sub'), [{
-      text: t('goLogin')
-    }]);
-    return (<Redirect href="/login" />);
-  }
 
   LocaleConfig.defaultLocale = i18n.language;
 

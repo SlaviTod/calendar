@@ -1,7 +1,7 @@
 import { Redirect } from "expo-router";
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ChangePass } from "@/components/ChangePassForm/ChangePassForm";
@@ -25,9 +25,6 @@ export default function Profile() {
 
 
   if (isReady && !isLoggedIn) {
-    Alert.alert(t('actionNeed'), t('notauth_sub'), [{
-      text: t('goLogin')
-    }]);
     return (<Redirect href="/login" />);
   }
 
