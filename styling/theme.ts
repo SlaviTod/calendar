@@ -3,29 +3,71 @@
  * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
  */
 
+import { DarkTheme, DefaultTheme, Theme } from '@react-navigation/native';
 import { Platform } from 'react-native';
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+const appThemeColor = 'orange';
+const themePrimary = '#ffbb33';
+export const themeLight = '#f9e79f';
+const tintColorLight = '#ffaa00';
+const tintColorDark = '#ffbb33';
 
 export const Colors = {
   light: {
-    text: '#11181C',
-    background: '#fff',
+    primary: themePrimary,
+    text: 'rgb(28, 28, 28)',
+    background: '#ffffff',
     tint: tintColorLight,
-    icon: '#687076',
+    icon: themePrimary, 
     tabIconDefault: '#687076',
     tabIconSelected: tintColorLight,
+    border: 'rgb(216, 216, 216)',
+    notification: 'rgb(255, 59, 48)',
+    link: themePrimary,
+    placeholder: '#4d4d4d',
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
+    primary: appThemeColor,
+    text: '#ffffff',
+    background: 'rgb(1, 1, 1)',
     tint: tintColorDark,
-    icon: '#9BA1A6',
+    icon: appThemeColor,
     tabIconDefault: '#9BA1A6',
     tabIconSelected: tintColorDark,
+    border: 'rgb(39, 39, 41)',
+    notification: 'rgb(255, 69, 58)',
+    link: appThemeColor,
+    placeholder: '#9BA1A6',
   },
 };
+
+export const myLightTheme: Theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: Colors.light.primary,
+    background: Colors.light.background,
+    card: Colors.light.background,
+    text: Colors.light.text,
+    border: Colors.light.border,
+    notification: Colors.light.notification,
+  },
+}
+
+export const myDarkTheme: Theme = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    primary: Colors.dark.primary,
+    background: Colors.dark.background,
+    card: Colors.dark.background,
+    text: Colors.dark.text,
+    border: Colors.dark.border,
+    notification: Colors.dark.notification,
+  },
+};
+
+
 
 export const Fonts = Platform.select({
   ios: {

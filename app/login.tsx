@@ -1,0 +1,36 @@
+import { IconButton } from '@/components/buttons/IconButton';
+import { LoginForm } from '@/components/LoginForm/LoginForm';
+import { ThemedText } from "@/components/themed/themed-text";
+import { ThemedView } from "@/components/themed/themed-view";
+import { commonStyles, containers } from '@/styling/common';
+import { Image } from 'expo-image';
+import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
+import { ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+export default function LogIn() {
+  const { t } = useTranslation();
+  const router = useRouter();
+
+  return (
+    <SafeAreaView>
+      <ScrollView>
+        <Image
+          source={require('@/assets/img/2025-4-Al-Nevski-0.jpg')}
+          style={commonStyles.headerImage}
+        />
+        <ThemedView style={containers.mainContainer}>
+
+          <ThemedView style={containers.titleWithIconButton}>
+            <ThemedText type="title" style={commonStyles.title}>{t('login_sub')}</ThemedText>
+            <IconButton name="return-up-back" size={26} onPressHandler={() => router.navigate('/')} />
+          </ThemedView>
+
+          <LoginForm />
+
+        </ThemedView>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
