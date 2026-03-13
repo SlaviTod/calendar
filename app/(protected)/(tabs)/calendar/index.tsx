@@ -4,18 +4,18 @@ import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert } from "react-native";
 
-import { ThemeButton } from "@/components/buttons/ThemeButton/ThemeButton";
-// import { TheCalendar } from "@/components/Calendar/ThemedCalendar";
-// import { ThemedPicker } from "@/components/themed/themed-picker";
+// import { ThemeButton } from "@/components/buttons/ThemeButton/ThemeButton";
+import { TheCalendar } from "@/components/Calendar/ThemedCalendar";
+import { ThemedPicker } from "@/components/themed/themed-picker";
 import { ThemedView } from "@/components/themed/themed-view";
 import { AuthContext } from "@/contexts/AuthContext";
 import { DataContext } from "@/contexts/DataContext";
 import { useRequesterArgs } from "@/hooks/useRequesterArgs";
 import { requester } from "@/requester/requester";
-import { commonStyles, containers } from "@/styling/common";
+import { containers, pickerStyles } from "@/styling/common";
 import { ApiEndpoints, ElbetitsaApiCalls, GetPrivateEventsResponse, PrivateEvent, PrivateEventType, Role } from "@/types";
-// import { DateData } from "react-native-calendars";
-// import { MarkingProps } from "react-native-calendars/src/calendar/day/marking";
+import { DateData } from "react-native-calendars";
+import { MarkingProps } from "react-native-calendars/src/calendar/day/marking";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
@@ -35,8 +35,8 @@ const actionList = {
 export type MyMarkedDates = {
   [key: string]: MyMarkingProps;
 };
-type MyMarkingProps = {
-// type MyMarkingProps = MarkingProps & {
+// type MyMarkingProps = {
+type MyMarkingProps = MarkingProps & {
   eventType: PrivateEventType;
   eventId: number;
 }
@@ -71,22 +71,22 @@ export default function CalendarScreen() {
       const startOfTheMonthAsDayOfWeek = currentMonth.start?.weekday || 0; // 1 = Monday 7 = Sunday
       const diff = dayOfTheWeek - startOfTheMonthAsDayOfWeek;
 
-      // for (let week = 1; week < 7; week += 1) {
-      //   const weekEvent = currentMonth.start?.plus({ days: diff < 0 ? diff + (week + 1) * 7 : diff + week * 7 });
-      //   if (weekEvent) {
-      //     const checkEndOfMonth = Interval.fromDateTimes(weekEvent, currentMonth.end);
-      //     if (!checkEndOfMonth.isValid) break;
+      for (let week = 1; week < 7; week += 1) {
+        const weekEvent = currentMonth.start?.plus({ days: diff < 0 ? diff + (week + 1) * 7 : diff + week * 7 });
+        if (weekEvent) {
+          const checkEndOfMonth = Interval.fromDateTimes(weekEvent, currentMonth.end!);
+          if (!checkEndOfMonth.isValid) break;
 
 
-      //     marked = {
-      //       ...marked, [weekEvent.toFormat('yyyy-MM-dd')]: {
-      //         eventId: event.id, eventType: event.eventType,
-      //         selected: true, marked: true,
-      //         selectedColor: 'orange'
-      //       }
-      //     };
-      //   }
-      // }
+          marked = {
+            ...marked, [weekEvent.toFormat('yyyy-MM-dd')]: {
+              eventId: event.id, eventType: event.eventType,
+              selected: true, marked: true,
+              selectedColor: 'orange'
+            }
+          };
+        }
+      }
     })
     return marked;
   }, [])
@@ -97,7 +97,7 @@ export default function CalendarScreen() {
     events.map((event) => {
       const dateString = DateTime.fromISO(event.start).toFormat('yyyy-MM-dd');
 
-      // marked = { ...marked, [dateString]: { eventId: event.id, eventType: event.eventType, selected: true, marked: true, selectedColor: 'orange' } }
+      marked = { ...marked, [dateString]: { eventId: event.id, eventType: event.eventType, selected: true, marked: true, selectedColor: 'orange' } }
     })
 
     return marked;
@@ -110,7 +110,7 @@ export default function CalendarScreen() {
   const [loading, setLoading] = useState(false);
 
   const [calendarMonth, setCalendarMonth] = useState(getMonthInterval(DateTime.now().toJSDate()));
-  // const [selected, setSelected] = useState({} as DateData);
+  const [selected, setSelected] = useState({} as DateData);
 
   const [showActionList, setShowActionList] = useState(false);
   const [actionList, setActionList] = useState([] as string[]);
@@ -152,32 +152,32 @@ export default function CalendarScreen() {
 
   const inputRef = useRef(null);
 
-  const handleOnDayPress = (day: any) => {
-  // const handleOnDayPress = (day: DateData) => {
+  // const handleOnDayPress = (day: any) => {
+  const handleOnDayPress = (day: DateData) => {
     // only for info and attendance
     const dayAfterToday = Interval.fromDateTimes(DateTime.now(), new Date(day.timestamp));
 
-    // if (!dayAfterToday.isValid) {
-    //   Alert.alert(t('warning'), t('eventTimeInvalid'), [{
-    //     text: t('close')
-    //   }]);
-    // }
-    // setSelected(day);
+    if (!dayAfterToday.isValid) {
+      Alert.alert(t('warning'), t('eventTimeInvalid'), [{
+        text: t('close')
+      }]);
+    }
+    setSelected(day);
 
-    //   // {"dateString": "2026-03-11", "day": 11, "month": 3, "timestamp": 1773187200000, "year": 2026}
+      // {"dateString": "2026-03-11", "day": 11, "month": 3, "timestamp": 1773187200000, "year": 2026}
   }
 
-  const handleOnDayLongPress = (day: any) => {
-  // const handleOnDayLongPress = (day: DateData) => {
+  // const handleOnDayLongPress = (day: any) => {
+  const handleOnDayLongPress = (day: DateData) => {
     const dayAfterToday = Interval.fromDateTimes(DateTime.now(), new Date(day.timestamp));
 
-    // if (!dayAfterToday.isValid) {
-    //   Alert.alert(t('warning'), t('eventTimeInvalid'), [{
-    //     text: t('close')
-    //   }]);
-    // }
+    if (!dayAfterToday.isValid) {
+      Alert.alert(t('warning'), t('eventTimeInvalid'), [{
+        text: t('close')
+      }]);
+    }
 
-    // setSelected(day);
+    setSelected(day);
 
     let eventsForTheDay: string[] = [];
     const markedDateStrings = Object.keys(markedEventDates);
@@ -198,17 +198,17 @@ export default function CalendarScreen() {
   }
 
 
-  const handleMonthChange = (day: any) => {
-  // const handleMonthChange = (day: DateData) => {
+  // const handleMonthChange = (day: any) => {
+  const handleMonthChange = (day: DateData) => {
 
-    const dayAfterToday = Interval.fromDateTimes(DateTime.now(), new Date(day.timestamp));
+    // const dayAfterToday = Interval.fromDateTimes(DateTime.now(), new Date(day.timestamp));
 
     // if (!dayAfterToday.isValid) {
     //   Alert.alert(t('warning'), t('eventTimeInvalid'), [{
     //     text: t('close')
     //   }]);
     // }
-    // setSelected(day);//
+    // setSelected(day);
     setCalendarMonth(getMonthInterval(new Date(day.timestamp)))
 
     //   // {"dateString": "2026-03-11", "day": 11, "month": 3, "timestamp": 1773187200000, "year": 2026}
@@ -241,20 +241,20 @@ export default function CalendarScreen() {
   const handleAction = (val: any) => {
     switch (val) {
       case 'add_event': {
-        // router.navigate({ pathname: '/(protected)/(tabs)/calendar/add-event', params: { date: selected.dateString } })
+        router.navigate({ pathname: '/(protected)/(tabs)/calendar/add-event', params: { date: selected.dateString } })
         break;
       };
       case 'update_event':
-        // router.navigate({
-        //   pathname: '/(protected)/(tabs)/calendar/update-event',
-        //   params: {
-        //     id: markedEventDates[selected.dateString].eventId,
-        //     type: markedEventDates[selected.dateString].eventType,
-        //   }
-        // })
+        router.navigate({
+          pathname: '/(protected)/(tabs)/calendar/update-event',
+          params: {
+            id: markedEventDates[selected.dateString].eventId,
+            type: markedEventDates[selected.dateString].eventType,
+          }
+        })
         break;
       case 'delete_event':
-        // deleteEvent(markedEventDates[selected.dateString].eventId);
+        deleteEvent(markedEventDates[selected.dateString].eventId);
         break;
       case 'set_attendance':
       case 'cancel_rehearsal':
@@ -266,7 +266,7 @@ export default function CalendarScreen() {
   return (
     <SafeAreaView style={containers.mainContainer}>
 
-      <ThemeButton
+      {/* <ThemeButton
         buttonStyle={[commonStyles.themedButtonWithIcon]}
         // handler={() => router.navigate({ pathname: '/(protected)/(tabs)/calendar/add-event', params: { date: selected.dateString } })}
         handler={() => {console.log('')}}
@@ -275,10 +275,10 @@ export default function CalendarScreen() {
         iconColor={commonStyles.themedButtonWithIcon.color}
         textStyle={commonStyles.subtitle}
         buttonText={t('add_event')}
-      />
+      /> */}
 
       <ThemedView>
-        {/* <ThemedPicker
+        <ThemedPicker
           selectedValue={''}
           // @ts-expect-error
           optionsList={actionList[user?.role] || []}
@@ -286,12 +286,12 @@ export default function CalendarScreen() {
           mode={"dropdown"}
           t={t}
           onValueChange={handleAction}
-        /> */}
+        />
       </ThemedView>
       <ThemedView style={{ position: "relative" }}>
         {showActionList &&
           <ThemedView style={{ position: 'absolute', top: 100, left: 50, }}>
-            {/* <ThemedPicker
+            <ThemedPicker
               reference={inputRef}
               selectedValue={''}
               optionsList={actionList}
@@ -299,14 +299,14 @@ export default function CalendarScreen() {
               mode={"dropdown"}
               t={t}
               onValueChange={handleAction}
-            /> */}
+            />
           </ThemedView>}
-        {/* <TheCalendar
+        <TheCalendar
           markedDates={markedEventDates}
           handleMonthChange={handleMonthChange}
           onDaySelect={handleOnDayPress}
           onLongDaySelect={handleOnDayLongPress}
-        /> */}
+        />
       </ThemedView>
 
     </SafeAreaView>

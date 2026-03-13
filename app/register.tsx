@@ -1,5 +1,5 @@
 import { IconButton } from '@/components/buttons/IconButton';
-// import { RegisterForm } from '@/components/RegisterForm/RegisterForm';
+import { RegisterForm } from '@/components/RegisterForm/RegisterForm';
 import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
 import { commonStyles, containers } from '@/styling/common';
@@ -29,7 +29,7 @@ export default function Register() {
             <IconButton name="return-up-back" size={26} onPressHandler={() => navigation.goBack()} />
           </ThemedView>
 
-          {/* <RegisterForm /> */}
+          <RegisterForm />
 
         </ThemedView>
       </ScrollView>

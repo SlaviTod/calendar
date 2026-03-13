@@ -8,7 +8,7 @@ import { AuthContext } from '@/contexts/AuthContext';
 import { useRequesterArgs } from '@/hooks/useRequesterArgs';
 import { requester } from '@/requester/requester';
 import { commonStyles, containers } from '@/styling/common';
-import { ApiEndpoints, ElbetitsaApiCalls, LoginRequest, LoginResponse } from '@/types';
+import { ApiEndpoints, ElbetitsaApiCalls, LoginRequest, LoginResponse, Role } from '@/types';
 import { IconButton } from '../buttons/IconButton';
 import { ThemeButton } from '../buttons/ThemeButton/ThemeButton';
 import { ThemedInput } from '../themed/themed-input';
@@ -37,8 +37,7 @@ export const LoginForm = () => {
       });
 
       logIn(res);
-      router.replace('/profile')
-      // res.user.role === Role.user ? router.replace('/profile') : router.replace('/calendar');
+      res.user.role === Role.user ? router.replace('/profile') : router.replace('/calendar');
     } catch (err: Error | unknown) {
       // @ts-expect-error ​
       Alert.alert(t('error'), `${t('login_msg_error')}. ${err instanceof Error ? t(err.message) : ''}. ${t('tryAgain')}`, [{

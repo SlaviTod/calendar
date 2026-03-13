@@ -1,5 +1,5 @@
 import { IconButton } from "@/components/buttons/IconButton";
-// import { EventForm } from "@/components/EventForm/EventForm";
+import { EventForm } from "@/components/EventForm/EventForm";
 import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
 import { commonStyles, containers } from "@/styling/common";
@@ -26,7 +26,7 @@ export default function CreateEvent() {
         <IconButton name="return-up-back" size={26} onPressHandler={() => router.back()} />
       </ThemedView>
 
-      {/* <EventForm date={params.date}/> */}
+      <EventForm date={params.date}/>
     </SafeAreaView>
   );
 }
