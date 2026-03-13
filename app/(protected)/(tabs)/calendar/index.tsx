@@ -35,7 +35,6 @@ const actionList = {
 export type MyMarkedDates = {
   [key: string]: MyMarkingProps;
 };
-// type MyMarkingProps = {
 type MyMarkingProps = MarkingProps & {
   eventType: PrivateEventType;
   eventId: number;
@@ -44,16 +43,13 @@ type MyMarkingProps = MarkingProps & {
 
 export default function CalendarScreen() {
 
-  const { isLoggedIn, user } = useContext(AuthContext);
+  const { isReady, isLoggedIn, user } = useContext(AuthContext);
   const { privateEvents, recurring, setData } = useContext(DataContext);
 
 
   const { t } = useTranslation();
 
-  if (!isLoggedIn) {
-    Alert.alert(t('actionNeed'), t('notauth_sub'), [{
-      text: t('goLogin')
-    }]);
+  if (isReady && !isLoggedIn) {
     return (<Redirect href="/login" />);
   }
 
@@ -119,7 +115,7 @@ export default function CalendarScreen() {
 
 
   useEffect(() => {
-    loadPrivateEvents();
+    if (user.role !== Role.user) loadPrivateEvents();
 
   }, [calendarMonth])
 
@@ -138,7 +134,8 @@ export default function CalendarScreen() {
           end: calendarMonth.end?.toISO(),
         }
       });
-      setMarkedDates((st) => ({...markDates(res.events?.length ? res.events : []),
+      setMarkedDates((st) => ({
+        ...markDates(res.events?.length ? res.events : []),
         ...markRecurringEvents(res.recurring as PrivateEvent[], calendarMonth)
       }));
       setData({ privateEvents: res.events, recurring: res.recurring });
@@ -152,7 +149,6 @@ export default function CalendarScreen() {
 
   const inputRef = useRef(null);
 
-  // const handleOnDayPress = (day: any) => {
   const handleOnDayPress = (day: DateData) => {
     // only for info and attendance
     const dayAfterToday = Interval.fromDateTimes(DateTime.now(), new Date(day.timestamp));
@@ -164,10 +160,9 @@ export default function CalendarScreen() {
     }
     setSelected(day);
 
-      // {"dateString": "2026-03-11", "day": 11, "month": 3, "timestamp": 1773187200000, "year": 2026}
+    // {"dateString": "2026-03-11", "day": 11, "month": 3, "timestamp": 1773187200000, "year": 2026}
   }
 
-  // const handleOnDayLongPress = (day: any) => {
   const handleOnDayLongPress = (day: DateData) => {
     const dayAfterToday = Interval.fromDateTimes(DateTime.now(), new Date(day.timestamp));
 
@@ -198,7 +193,6 @@ export default function CalendarScreen() {
   }
 
 
-  // const handleMonthChange = (day: any) => {
   const handleMonthChange = (day: DateData) => {
 
     // const dayAfterToday = Interval.fromDateTimes(DateTime.now(), new Date(day.timestamp));
