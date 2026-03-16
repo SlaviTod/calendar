@@ -1,4 +1,9 @@
 {
+  "permission_required": "Нужно е разрешение",
+  "permission_required_msg": "За да може да качите профилна снимка е нужно да дадете разрешение",
+  "select_err_msg": "Не бе избрана снимка",
+  "upload_avatar_msg_success": "Успешно качихте профилна снимка",
+  "upload_avatar_msg_error": "Не успяхте да качите профилната снимка",
   "view_day_info": "Виж ",
   "set_attendance": "Отбележете присъствие",
   "cancel_rehearsal": "Отмени репетиция",
@@ -183,6 +188,7 @@
   "update_comment": "Промени коментар",
   "close": "Затвори",
   "warning": "Внимание",
+  "warning_s": "поЗдравления",
   "add_comment_msg_warning": "Нужно е да сте логнат, за да може да коментирате",
   "edit_comment": "Обнови коментара",
   "err_comment_required": "Въведете коментар",

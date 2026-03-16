@@ -43,6 +43,14 @@ interface ChangePassRequest {
 interface ChangePassForm extends ChangePassRequest {
     confirmPassword: string;
 }
+interface UploadAvatarRequest {
+    avatar: string;
+    mimeType: string;
+    fileName: string;
+}
+interface UploadAvatarResponse {
+    avatar: string;
+}
 
 interface Language {
     id: number;
@@ -227,9 +235,9 @@ interface RequesterArgs {
     queries?: QueryObject;
     file?: Blob;
 }
-type FormDataObjectType = LoginRequest | RegisterRequest | UpdateUserProfileRequest | ChangePassRequest | PrivateEventRequest | PrivateEventUpdateRequest;
+type FormDataObjectType = LoginRequest | RegisterRequest | UpdateUserProfileRequest | ChangePassRequest | PrivateEventRequest | PrivateEventUpdateRequest | UploadAvatarRequest;
 type QueryObject = {
     [K: string]: number | string;
 };
 
-export { type ApiCalls, ApiEndpoints, ApiRouts, type AsJson, type CalendarEventDetails, type ChangePassForm, type ChangePassRequest, type CreateUserResponse, ElbetitsaApiCalls, type FormDataObjectType, type GetEventResponse, type GetEventsResponse, type GetPrivateEventsResponse, type GetRecurringEventsResponse, HTTPmethod, type HTTPrequest, type Language, type LoginRequest, type LoginResponse, OneTimePrivateEvents, type PrivateEvent, type PrivateEventRequest, type PrivateEventResponse, type PrivateEventType, type PrivateEventUpdateRequest, type PublicEvent, PublicEventType, type RegisterForm, type RegisterRequest, RepetitiveEvents, type RequesterArgs, Role, type Timestamps, type UpdateUserProfileRequest, type UpdateUserResponse, type User, Voice };
+export { type ApiCalls, ApiEndpoints, ApiRouts, type AsJson, type CalendarEventDetails, type ChangePassForm, type ChangePassRequest, type CreateUserResponse, ElbetitsaApiCalls, type FormDataObjectType, type GetEventResponse, type GetEventsResponse, type GetPrivateEventsResponse, type GetRecurringEventsResponse, HTTPmethod, type HTTPrequest, type Language, type LoginRequest, type LoginResponse, OneTimePrivateEvents, type PrivateEvent, type PrivateEventRequest, type PrivateEventResponse, type PrivateEventType, type PrivateEventUpdateRequest, type PublicEvent, PublicEventType, type RegisterForm, type RegisterRequest, RepetitiveEvents, type RequesterArgs, Role, type Timestamps, type UpdateUserProfileRequest, type UpdateUserResponse, type UploadAvatarRequest, type UploadAvatarResponse, type User, Voice };

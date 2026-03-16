@@ -45,7 +45,7 @@ export const RegisterForm = () => {
       Alert.alert(t('error'), `${t('registration_msg_error')}. ${err instanceof Error ? t(err.message) : ''}. ${t('tryAgain')}`, [{
         text: t('close')
       }])
-      console.log('Log error', err);
+      console.log('Register error', err);
       setIsSend(false);
     }
   }

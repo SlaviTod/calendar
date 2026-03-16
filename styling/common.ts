@@ -71,6 +71,16 @@ export const containers = StyleSheet.create({
 })
 
 export const commonStyles = StyleSheet.create({
+  camera: {
+    position: 'absolute',
+    top: 30,
+    right: 0,
+  },
+  save: {
+    position: 'absolute',
+    bottom: 30,
+    right: 0,
+  },
   themedButtonWithIcon: {
     flexDirection: "row",
     justifyContent: "center",

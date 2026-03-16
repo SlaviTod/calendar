@@ -47,7 +47,7 @@ export const UserProfileForm = ({
         ...requestArgs,
         formData: values,
       });
-      logIn({ ...res, token });
+      logIn({ user: {...user, ...res}, token });
       Alert.alert(t('warning'), t('update_msg_success'), [{
         text: t('close')
       }])
@@ -57,7 +57,7 @@ export const UserProfileForm = ({
       Alert.alert(t('error'), `${t('update_msg_error')}. ${err instanceof Error ? t(err.message) : ''}. ${t('tryAgain')}`, [{
         text: t('close')
       }])
-      console.log('Log error', err);
+      console.log('Update User Profile error', err);
       setIsSend(false);
     }
   }

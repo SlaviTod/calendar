@@ -19,8 +19,6 @@ export default function UpdateEvent() {
   const { privateEvents, recurring } = useContext(DataContext);
 
   const params: any = useLocalSearchParams();
-  console.log("🚀 ~ UpdateEvent ~ params:", params)
-
 
   const event = params.type === RepetitiveEvents.recurringRehearsal ?
     recurring.find((el) => el.id == params.id)

@@ -226,7 +226,7 @@ export default function CalendarScreen() {
       Alert.alert(t('error'), `${t('delete_event_msg_err')}. ${err instanceof Error ? t(err.message) : ''}. ${t('tryAgain')}`, [{
         text: t('close')
       }])
-      console.log('Fetch private events error', err);
+      console.log('Delete private event error', err);
     } finally {
       setLoading(false);
     }
@@ -260,28 +260,6 @@ export default function CalendarScreen() {
   return (
     <SafeAreaView style={containers.mainContainer}>
 
-      {/* <ThemeButton
-        buttonStyle={[commonStyles.themedButtonWithIcon]}
-        // handler={() => router.navigate({ pathname: '/(protected)/(tabs)/calendar/add-event', params: { date: selected.dateString } })}
-        handler={() => {console.log('')}}
-        iconName="add"
-        iconSize={26}
-        iconColor={commonStyles.themedButtonWithIcon.color}
-        textStyle={commonStyles.subtitle}
-        buttonText={t('add_event')}
-      /> */}
-
-      <ThemedView>
-        <ThemedPicker
-          selectedValue={''}
-          // @ts-expect-error
-          optionsList={actionList[user?.role] || []}
-          style={pickerStyles.picker}
-          mode={"dropdown"}
-          t={t}
-          onValueChange={handleAction}
-        />
-      </ThemedView>
       <ThemedView style={{ position: "relative" }}>
         {showActionList &&
           <ThemedView style={{ position: 'absolute', top: 100, left: 50, }}>
