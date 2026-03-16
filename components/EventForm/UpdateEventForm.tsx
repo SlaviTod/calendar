@@ -69,7 +69,7 @@ export const UpdateEventForm = ({
       Alert.alert(t('error'), `${t('event_update_msg_error')}. ${err instanceof Error ? t(err.message) : ''}. ${t('tryAgain')}`, [{
         text: t('close')
       }])
-      console.log('Log error', err);
+      console.log('Update Event error', err);
       setIsSend(false);
     }
   }
@@ -191,13 +191,7 @@ export const UpdateEventForm = ({
                     startMinutes={event.asJson?.startAt?.minute || ''}
                     value={values.start}
                     returnDateObjUnit={true}
-                    onChangePart={(datePart) => { 
-                      console.log("🚀 ~ UpdateEventForm ~ datePart:", datePart)
-                      console.log('values.asJson before time', values.asJson);
-                      setFieldValue('asJson', prepareAsJSONstartAt(values.asJson, datePart ));
-                      // setFieldValue('asJson', { ...values.asJson, startAt: { ...values.asJson?.startAt, ...datePart } }) 
-                      console.log('values.asJson after time', values.asJson);
-                    }}
+                    onChangePart={(datePart) => setFieldValue('asJson', prepareAsJSONstartAt(values.asJson, datePart ))}
                   />
                 </ThemedView>
               </>}

@@ -47,7 +47,7 @@ export const ChangePass = ({
       Alert.alert(t('error'), `${t('pass_change_msg_error')}. ${err instanceof Error ? t(err.message) : ''}. ${t('tryAgain')}`, [{
         text: t('close')
       }])
-      console.log('Log error', err);
+      console.log('Change Pass error', err);
       setIsSend(false);
     }
   }

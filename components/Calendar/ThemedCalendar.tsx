@@ -1,9 +1,7 @@
 import { DateTime, Interval } from 'luxon';
-import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { Calendar, CalendarProps, DateData, LocaleConfig } from 'react-native-calendars';
 
-import { AuthContext } from "@/contexts/AuthContext";
 import { useColorScheme } from "@/hooks/use-color-scheme.web";
 import { calendarDarkTheme, calendarLightTheme } from "@/styling/calendarTheme";
 import { containers } from "@/styling/common";
@@ -66,8 +64,6 @@ export const TheCalendar = ({
   onLongDaySelect,
   ...otherProps
 }: TCalendarProps) => {
-
-  const { isLoggedIn, user } = useContext(AuthContext);
 
   const { i18n, t } = useTranslation();
 

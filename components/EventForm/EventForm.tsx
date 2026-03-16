@@ -78,7 +78,7 @@ export const EventForm = ({
       Alert.alert(t('error'), `${t('event_msg_error')}. ${err instanceof Error ? t(err.message) : ''}. ${t('tryAgain')}`, [{
         text: t('close')
       }])
-      console.log('Log error', err);
+      console.log('Create Event error', err);
       setIsSend(false);
     }
   }
@@ -196,11 +196,7 @@ export const EventForm = ({
                     startMinutes={''}
                     value={values.start}
                     returnDateObjUnit={true}
-                    onChangePart={(datePart) => {
-                      console.log('values.asJson before time', values.asJson);
-                      setFieldValue('asJson', prepareAsJSONstartAt(values.asJson, datePart ));
-                      // setFieldValue('asJson', { ...values.asJson, startAt: { ...values.asJson?.startAt, ...datePart } }) 
-                    }}
+                    onChangePart={(datePart) => setFieldValue('asJson', prepareAsJSONstartAt(values.asJson, datePart ))}
                   />
                 </ThemedView>
               </>}{!!values.durationInMinutes && <ThemedText style={commonStyles.label}>{t('durationInMinutes')}</ThemedText>}
@@ -234,7 +230,6 @@ export const EventForm = ({
                     label={t('dayOfWeek')}
                     t={t}
                     onValueChange={(val) => setFieldValue('asJson', prepareAsJSON(values.asJson, { dayOfTheWeek: val }))}
-                  // onValueChange={(val) => setFieldValue('asJson', { ...values.asJson, dayOfTheWeek: val.toString() })}
                   />
                 </ThemedView>
 

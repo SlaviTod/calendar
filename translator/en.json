@@ -1,4 +1,9 @@
   {
+    "permission_required": "Permission required",
+    "permission_required_msg": "Permission to access the photo library is required",
+    "select_err_msg": "The image was not selected",
+    "upload_avatar_msg_success": "The avatar image was uploaded successfully",
+    "upload_avatar_msg_error": "The avatar image was not uploaded",
     "set_attendance": "Mark attendance",
     "delete_event": "Delete event",
     "view_day_info": "Виж ",
@@ -178,6 +183,7 @@
     "update_comment": "Update comment",
     "close": "Close",
     "warning": "Warning",
+    "warning_s": "Warning",
     "add_comment_msg_warning": "You should be logged-in in order to comment",
     "edit_comment": "Update comment",
     "err_comment_required": "Add comment",

@@ -43,7 +43,7 @@ export const LoginForm = () => {
       Alert.alert(t('error'), `${t('login_msg_error')}. ${err instanceof Error ? t(err.message) : ''}. ${t('tryAgain')}`, [{
         text: t('close')
       }])
-      console.log('Log error', err);
+      console.log('Log-in error', err);
       setIsSend(false);
     }
   }

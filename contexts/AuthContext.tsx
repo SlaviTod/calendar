@@ -31,9 +31,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isReady, setIsReady] = useState(false);
 
   const logIn = ({ user, token }: { user: User, token: string }) => {
-    console.log("🚀 ~ logIn ~ token:", token)
-    console.log("🚀 ~ logIn ~ user:", user)
-    
     setUser(user);
     setToken(token);
     setIsLoggedIn(true);
