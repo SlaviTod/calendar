@@ -1,4 +1,4 @@
-import { Redirect, useRouter } from "expo-router";
+import { Redirect, useLocalSearchParams, useRouter } from "expo-router";
 import { DateTime, Interval } from 'luxon';
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -46,6 +46,7 @@ export default function CalendarScreen() {
   const { isReady, isLoggedIn, user } = useContext(AuthContext);
   const { privateEvents, recurring, setData } = useContext(DataContext);
 
+  const { needRefresh } = useLocalSearchParams();
 
   const { t } = useTranslation();
 
@@ -117,7 +118,7 @@ export default function CalendarScreen() {
   useEffect(() => {
     if (user.role !== Role.user) loadPrivateEvents();
 
-  }, [calendarMonth])
+  }, [calendarMonth, needRefresh])
 
 
   const requestArgs = useRequesterArgs({ request: ElbetitsaApiCalls[ApiEndpoints.getPrivateEvents] });

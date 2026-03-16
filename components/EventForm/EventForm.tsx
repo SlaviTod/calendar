@@ -71,8 +71,9 @@ export const EventForm = ({
       Alert.alert(t('warning'), `${t('event_msg_success')}`, [{
         text: t('close')
       }])
-      // router.back(); // pass month?
+
       router.dismissTo('/calendar');
+      router.setParams({ needRefresh: values.start.toISOString() });
     } catch (err: Error | unknown) {
       // @ts-expect-error ​
       Alert.alert(t('error'), `${t('event_msg_error')}. ${err instanceof Error ? t(err.message) : ''}. ${t('tryAgain')}`, [{
