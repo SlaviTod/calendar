@@ -200,7 +200,9 @@ export const EventForm = ({
                     onChangePart={(datePart) => setFieldValue('asJson', prepareAsJSONstartAt(values.asJson, datePart ))}
                   />
                 </ThemedView>
-              </>}{!!values.durationInMinutes && <ThemedText style={commonStyles.label}>{t('durationInMinutes')}</ThemedText>}
+              </>}
+              
+              <ThemedText style={commonStyles.label}>{t('durationInMinutes')}</ThemedText>
               <MyInput
                 wrapperStyle={containers.inputWr}
                 style={commonStyles.input}
