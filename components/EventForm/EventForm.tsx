@@ -71,8 +71,9 @@ export const EventForm = ({
       Alert.alert(t('warning'), `${t('event_msg_success')}`, [{
         text: t('close')
       }])
-      // router.back(); // pass month?
+
       router.dismissTo('/calendar');
+      router.setParams({ needRefresh: values.start.toISOString() });
     } catch (err: Error | unknown) {
       // @ts-expect-error ​
       Alert.alert(t('error'), `${t('event_msg_error')}. ${err instanceof Error ? t(err.message) : ''}. ${t('tryAgain')}`, [{
@@ -199,7 +200,9 @@ export const EventForm = ({
                     onChangePart={(datePart) => setFieldValue('asJson', prepareAsJSONstartAt(values.asJson, datePart ))}
                   />
                 </ThemedView>
-              </>}{!!values.durationInMinutes && <ThemedText style={commonStyles.label}>{t('durationInMinutes')}</ThemedText>}
+              </>}
+              
+              <ThemedText style={commonStyles.label}>{t('durationInMinutes')}</ThemedText>
               <MyInput
                 wrapperStyle={containers.inputWr}
                 style={commonStyles.input}

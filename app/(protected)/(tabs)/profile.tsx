@@ -1,5 +1,4 @@
 import * as ImagePicker from 'expo-image-picker';
-import { Redirect } from "expo-router";
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, ScrollView } from 'react-native';
@@ -34,10 +33,6 @@ export default function Profile() {
   const [changePass, setChangePass] = useState(false);
   const { t } = useTranslation();
 
-
-  if (isReady && !isLoggedIn) {
-    return (<Redirect href="/login" />);
-  }
 
   // if ([Role.user].includes(user.role)) {
   //   Alert.alert(t('actionNeed'), t('role_user_sub'), [{

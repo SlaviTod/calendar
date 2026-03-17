@@ -1,4 +1,4 @@
-import { Redirect, useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { DateTime, Interval } from 'luxon';
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -43,15 +43,12 @@ type MyMarkingProps = MarkingProps & {
 
 export default function CalendarScreen() {
 
-  const { isReady, isLoggedIn, user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const { privateEvents, recurring, setData } = useContext(DataContext);
 
+  const params: any = useLocalSearchParams();
 
   const { t } = useTranslation();
-
-  if (isReady && !isLoggedIn) {
-    return (<Redirect href="/login" />);
-  }
 
   const getMonthInterval = useCallback((date: Date) => {
     return Interval.fromDateTimes(DateTime.fromJSDate(date).startOf('month'), DateTime.fromJSDate(date).endOf('month'));
@@ -67,8 +64,8 @@ export default function CalendarScreen() {
       const startOfTheMonthAsDayOfWeek = currentMonth.start?.weekday || 0; // 1 = Monday 7 = Sunday
       const diff = dayOfTheWeek - startOfTheMonthAsDayOfWeek;
 
-      for (let week = 1; week < 7; week += 1) {
-        const weekEvent = currentMonth.start?.plus({ days: diff < 0 ? diff + (week + 1) * 7 : diff + week * 7 });
+      for (let week = 0; week < 7; week += 1) {
+        const weekEvent = currentMonth.start?.plus({ days: diff + week * 7 });
         if (weekEvent) {
           const checkEndOfMonth = Interval.fromDateTimes(weekEvent, currentMonth.end!);
           if (!checkEndOfMonth.isValid) break;
@@ -117,7 +114,7 @@ export default function CalendarScreen() {
   useEffect(() => {
     if (user.role !== Role.user) loadPrivateEvents();
 
-  }, [calendarMonth])
+  }, [calendarMonth, params])
 
 
   const requestArgs = useRequesterArgs({ request: ElbetitsaApiCalls[ApiEndpoints.getPrivateEvents] });

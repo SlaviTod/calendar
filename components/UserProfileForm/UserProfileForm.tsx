@@ -47,7 +47,7 @@ export const UserProfileForm = ({
         ...requestArgs,
         formData: values,
       });
-      logIn({ user: {...user, ...res}, token });
+      logIn({ user: { ...user, ...res.user }, token });
       Alert.alert(t('warning'), t('update_msg_success'), [{
         text: t('close')
       }])
