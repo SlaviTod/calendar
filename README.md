@@ -12,10 +12,13 @@ The app is an [Expo](https://expo.dev) project created with [`create-expo-app`](
 
 In order to start the project You should install the .apk file on an Android device and start the app
 [`Elbetitsa calendar v.1.0.0`](https://drive.google.com/file/d/15y2TEzZEmRb91-l0QMz-avE8-0tVyhYp/view?usp=sharing) 
-Note: A user with the role 'User' cannot see private events on the Calendar. Please, for testing purposes of the calendar functionality, use the following user: 
+Note: A user with the role 'User' cannot see private events on the Calendar. Please, for testing purposes of the calendar functionality, use the following users: 
+* Role Member
 email: test@softuni.bg
 pass: Test11t%
-
+* Role Conductor (only a User with role Conductor can create a recurring private event): 
+email: m_lisa@abv.bg
+pass: Test11t%
 
 # Functional Guide
 
@@ -65,7 +68,7 @@ The project uses the Expo Router. All Tab Screens are placed in protected folder
 The full navigation structure is:
 * Root Stack Navigator 
     (protected) - screens that require authentication  
-    /login - 
+    /login
     /register
     /logout
 * Protected Stack Navigator 
