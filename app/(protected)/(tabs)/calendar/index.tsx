@@ -46,6 +46,7 @@ export default function CalendarScreen() {
   const { user } = useContext(AuthContext);
   const { privateEvents, recurring, setData } = useContext(DataContext);
 
+  // TODO update
   const params: any = useLocalSearchParams();
 
   const { t } = useTranslation();
@@ -114,7 +115,7 @@ export default function CalendarScreen() {
   useEffect(() => {
     if (user.role !== Role.user) loadPrivateEvents();
 
-  }, [calendarMonth, params])
+  }, [calendarMonth])
 
 
   const requestArgs = useRequesterArgs({ request: ElbetitsaApiCalls[ApiEndpoints.getPrivateEvents] });
@@ -220,7 +221,7 @@ export default function CalendarScreen() {
       }]);
     } catch (err) {
       // @ts-expect-error ​
-      Alert.alert(t('error'), `${t('delete_event_msg_err')}. ${err instanceof Error ? t(err.message) : ''}. ${t('tryAgain')}`, [{
+      Alert.alert(t('error'), `${t('delete_event_msg_err')}. ${err instanceof Error ? t(err.message) + '. ' : ''} ${t('tryAgain')}`, [{
         text: t('close')
       }])
       console.log('Delete private event error', err);

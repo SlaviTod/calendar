@@ -28,7 +28,7 @@ export default function HomeScreen() {
   const requestArgs = useRequesterArgs({ request: ElbetitsaApiCalls[ApiEndpoints.getPublicEvents] });
 
   const loadPublicEvents: () => Promise<void> = useCallback(async () => {
-    if (loading || !hasMore || refreshing) return;
+    if (loading || !hasMore) return;
     setLoading(true);
     try {
       const res: GetEventsResponse = await requester({
@@ -56,6 +56,7 @@ export default function HomeScreen() {
     setRefreshing(true);
     refreshEvents();
     setPage(1);
+    await loadPublicEvents();
     setHasMore(true);
     setRefreshing(false);
   }, []);

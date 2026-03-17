@@ -64,7 +64,7 @@ export default function Profile() {
       }
     } catch (err) {
       // @ts-expect-error
-      Alert.alert(t('error'), `${t('upload_avatar_msg_error')}. ${err instanceof Error ? t(err.message) : ''}. ${t('tryAgain')}`, [{
+      Alert.alert(t('error'), `${t('upload_avatar_msg_error')}. ${err instanceof Error ? t(err.message) + '. ' : ''}${t('tryAgain')}`, [{
         text: t('oKey')
       }])
     } finally {
@@ -75,33 +75,40 @@ export default function Profile() {
 
   const selectImage = async () => {
     if (!uploading) {
-
-      const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (!permission.granted) {
-        Alert.alert(t('permission_required'), t('permission_required_msg'));
-        return;
-      }
-
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ['images'],
-        // allowsEditing: true,
-        // aspect: [3, 3],
-        base64: true,
-        quality: 0.01,
-      });
-
-      if (!result.canceled) {
-        if (!validationRequirements.allowedMimeTypes.includes(result.assets[0].mimeType || ' ')) {
-          Alert.alert(t('warning'), `${t('not_allowed_FileType__msg_error')}. ${t('allowed_FT')}: ${validationRequirements.allowedFileFormats.join(', ')}. ${t('tryAgain')}`);
-          return;
+      try {
+        try {
+          const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+          if (!permission.granted) {
+            Alert.alert(t('permission_required'), t('permission_required_msg'));
+            return;
+          }
+        } catch (err) {
+          console.log("selectImage ~ permission err:", err)
         }
-        if (result.assets[0].fileSize && result.assets[0].fileSize > validationRequirements.sizeMax) {
-          Alert.alert(t('warning'), `${t('not_allowed_size__msg_error')} ${validationRequirements.sizeMB} MB. ${t('tryAgain')}`);
-          return;
+
+        const result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ['images'],
+          allowsEditing: true,
+          aspect: [1, 1],
+          base64: true,
+          quality: 0.05,
+        });
+
+        if (!result.canceled) {
+          if (!validationRequirements.allowedMimeTypes.includes(result.assets[0].mimeType || ' ')) {
+            Alert.alert(t('warning'), `${t('not_allowed_FileType__msg_error')}. ${t('allowed_FT')}: ${validationRequirements.allowedFileFormats.join(', ')}. ${t('tryAgain')}`);
+            return;
+          }
+          // if (result.assets[0].fileSize && result.assets[0].fileSize > validationRequirements.sizeMax) {
+          //   Alert.alert(t('warning'), `${t('not_allowed_size__msg_error')} ${validationRequirements.sizeMB} MB. ${t('tryAgain')}`);
+          //   return;
+          // }
+          setImage(result.assets[0]);
+        } else {
+          Alert.alert(t('warning'), t('select_err_msg'));
         }
-        setImage(result.assets[0]);
-      } else {
-        Alert.alert(t('warning'), t('select_err_msg'));
+      } catch (err) {
+        console.log("selectImage ~ err:", err)
       }
     }
   }

@@ -42,7 +42,7 @@ export const RegisterForm = () => {
       router.dismissTo('/profile');
     } catch (err: Error | unknown) {
       // @ts-expect-error ​
-      Alert.alert(t('error'), `${t('registration_msg_error')}. ${err instanceof Error ? t(err.message) : ''}. ${t('tryAgain')}`, [{
+      Alert.alert(t('error'), `${t('registration_msg_error')}. ${err instanceof Error ? t(err.message) + '. ' : ''}${t('tryAgain')}`, [{
         text: t('close')
       }])
       console.log('Register error', err);

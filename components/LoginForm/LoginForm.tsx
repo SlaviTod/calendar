@@ -40,7 +40,7 @@ export const LoginForm = () => {
       res.user.role === Role.user ? router.replace('/profile') : router.replace('/calendar');
     } catch (err: Error | unknown) {
       // @ts-expect-error ​
-      Alert.alert(t('error'), `${t('login_msg_error')}. ${err instanceof Error ? t(err.message) : ''}. ${t('tryAgain')}`, [{
+      Alert.alert(t('error'), `${t('login_msg_error')}. ${err instanceof Error ? t(err.message) + '. ' : ''}${t('tryAgain')}`, [{
         text: t('close')
       }])
       console.log('Log-in error', err);

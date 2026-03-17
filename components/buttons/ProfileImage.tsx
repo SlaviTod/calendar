@@ -44,7 +44,7 @@ export const ProfileImage = ({
       {showUpload && <IconButton style={commonStyles.camera} name="camera" size={30} onPressHandler={handler}/>}
       {showUpload && !!selectedUrl && <IconButton style={commonStyles.save} name="save" size={30} onPressHandler={saveHandler}/>}
 
-      {!avatarUrl && <IconButton name="person-circle" style={style} size={iconSize} onPressHandler={handler} />}
+      {!avatarUrl && !selectedUrl && <IconButton name="person-circle" style={style} size={iconSize} onPressHandler={handler} />}
     </ThemedView>
   );
 }

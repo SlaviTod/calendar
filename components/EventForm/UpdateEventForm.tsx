@@ -67,7 +67,7 @@ export const UpdateEventForm = ({
       router.setParams({ needRefresh: values.start.toISOString() });
     } catch (err: Error | unknown) {
       // @ts-expect-error ​
-      Alert.alert(t('error'), `${t('event_update_msg_error')}. ${err instanceof Error ? t(err.message) : ''}. ${t('tryAgain')}`, [{
+      Alert.alert(t('error'), `${t('event_update_msg_error')}. ${err instanceof Error ? t(err.message) + '. ' : ''}${t('tryAgain')}`, [{
         text: t('close')
       }])
       console.log('Update Event error', err);

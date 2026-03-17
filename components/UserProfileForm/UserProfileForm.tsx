@@ -54,7 +54,7 @@ export const UserProfileForm = ({
       handleSuccess();
     } catch (err: Error | unknown) {
       // @ts-expect-error ​
-      Alert.alert(t('error'), `${t('update_msg_error')}. ${err instanceof Error ? t(err.message) : ''}. ${t('tryAgain')}`, [{
+      Alert.alert(t('error'), `${t('update_msg_error')}. ${err instanceof Error ? t(err.message) + '. ' : ''}${t('tryAgain')}`, [{
         text: t('close')
       }])
       console.log('Update User Profile error', err);

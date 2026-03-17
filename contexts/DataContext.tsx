@@ -1,4 +1,5 @@
 import { PrivateEvent, PublicEvent } from "@/types";
+import { DateTime } from "luxon";
 import { createContext, PropsWithChildren, useState } from "react";
 
 
@@ -36,8 +37,12 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
     if (data?.recurring) setRecurring(data.recurring);
   }
 
-  const setPublicData = (events: PublicEvent[]) => {
-    setEvents((st) => ([ ...st, ...events ]));
+  const setPublicData = (newEvents: PublicEvent[]) => {
+    newEvents.map((event) => {
+      const index = events.findIndex((e) => e.id === event.id);
+      if (index === -1) setEvents((st) => ([ ...st, event ]));
+    })
+    setEvents((st) => st.sort((a, b) => DateTime.fromISO(a.start).valueOf() - DateTime.fromISO(b.start).valueOf()));
   }
 
   const refreshEvents = () => {
